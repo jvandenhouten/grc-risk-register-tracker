@@ -1,0 +1,76 @@
+{
+  "source": "NIST Cybersecurity Framework (CSF) 2.0, published February 26, 2024 (NIST CSWP 29)",
+  "functions": [
+    {
+      "function_id": "GV",
+      "name": "Govern",
+      "description": "The organization's cybersecurity risk management strategy, expectations, and policy are established, communicated, and monitored.",
+      "sort_order": 1,
+      "categories": [
+        {"category_id": "GV.OC", "name": "Organizational Context", "description": "The circumstances surrounding the organization's cybersecurity risk management decisions are understood."},
+        {"category_id": "GV.RM", "name": "Risk Management Strategy", "description": "The organization's priorities, constraints, risk tolerance and appetite statements, and assumptions are established, communicated, and used to support operational risk decisions."},
+        {"category_id": "GV.RR", "name": "Roles, Responsibilities, and Authorities", "description": "Cybersecurity roles, responsibilities, and authorities are established, communicated, and understood to foster accountability."},
+        {"category_id": "GV.PO", "name": "Policy", "description": "Organizational cybersecurity policy is established, communicated, and enforced."},
+        {"category_id": "GV.OV", "name": "Oversight", "description": "Results of organization-wide cybersecurity risk management activities and performance are used to inform, improve, and adjust the risk management strategy."},
+        {"category_id": "GV.SC", "name": "Cybersecurity Supply Chain Risk Management", "description": "Cyber supply chain risk management processes are identified, established, managed, monitored, and improved by organizational stakeholders."}
+      ]
+    },
+    {
+      "function_id": "ID",
+      "name": "Identify",
+      "description": "The organization's current cybersecurity risks are understood.",
+      "sort_order": 2,
+      "categories": [
+        {"category_id": "ID.AM", "name": "Asset Management", "description": "Assets (e.g., data, hardware, software, systems, facilities, services, people) that enable the organization to achieve business purposes are identified and managed consistent with their relative importance."},
+        {"category_id": "ID.RA", "name": "Risk Assessment", "description": "The cybersecurity risk to the organization, assets, and individuals is understood by the organization."},
+        {"category_id": "ID.IM", "name": "Improvement", "description": "Improvements to organizational cybersecurity risk management processes, procedures, and activities are identified across all CSF Functions."}
+      ]
+    },
+    {
+      "function_id": "PR",
+      "name": "Protect",
+      "description": "Safeguards to manage the organization's cybersecurity risks are used.",
+      "sort_order": 3,
+      "categories": [
+        {"category_id": "PR.AA", "name": "Identity Management, Authentication, and Access Control", "description": "Access to physical and logical assets is limited to authorized users, services, and hardware and managed commensurate with the assessed risk of unauthorized access."},
+        {"category_id": "PR.AT", "name": "Awareness and Training", "description": "The organization's personnel are provided with cybersecurity awareness and training so they can perform their cybersecurity-related tasks."},
+        {"category_id": "PR.DS", "name": "Data Security", "description": "Data are managed consistent with the organization's risk strategy to protect the confidentiality, integrity, and availability of information."},
+        {"category_id": "PR.PS", "name": "Platform Security", "description": "The hardware, software, and services of physical and virtual platforms are managed consistent with the organization's risk strategy."},
+        {"category_id": "PR.IR", "name": "Technology Infrastructure Resilience", "description": "Security architectures are managed with the organization's risk strategy to protect asset confidentiality, integrity, and availability, and organizational resilience."}
+      ]
+    },
+    {
+      "function_id": "DE",
+      "name": "Detect",
+      "description": "Possible cybersecurity attacks and compromises are found and analyzed.",
+      "sort_order": 4,
+      "categories": [
+        {"category_id": "DE.CM", "name": "Continuous Monitoring", "description": "Assets are monitored to find anomalies, indicators of compromise, and other potentially adverse events."},
+        {"category_id": "DE.AE", "name": "Adverse Event Analysis", "description": "Anomalies, indicators of compromise, and other potentially adverse events are analyzed to characterize the events and detect cybersecurity incidents."}
+      ]
+    },
+    {
+      "function_id": "RS",
+      "name": "Respond",
+      "description": "Actions regarding a detected cybersecurity incident are taken.",
+      "sort_order": 5,
+      "categories": [
+        {"category_id": "RS.MA", "name": "Incident Management", "description": "Responses to detected cybersecurity incidents are managed."},
+        {"category_id": "RS.AN", "name": "Incident Analysis", "description": "Investigations are conducted to ensure effective response and support forensics and recovery activities."},
+        {"category_id": "RS.CO", "name": "Incident Response Reporting and Communication", "description": "Response activities are coordinated with internal and external stakeholders as required by laws, regulations, or policies."},
+        {"category_id": "RS.MI", "name": "Incident Mitigation", "description": "Activities are performed to prevent expansion of an event and mitigate its effects."}
+      ]
+    },
+    {
+      "function_id": "RC",
+      "name": "Recover",
+      "description": "Assets and operations affected by a cybersecurity incident are restored.",
+      "sort_order": 6,
+      "categories": [
+        {"category_id": "RC.RP", "name": "Incident Recovery Plan Execution", "description": "Restoration activities are performed to ensure operational availability of systems and services affected by cybersecurity incidents."},
+        {"category_id": "RC.CO", "name": "Incident Recovery Communication", "description": "Restoration activities are coordinated with internal and external parties."},
+        {"category_id": "RC.IM", "name": "Improvements", "description": "Recovery planning and processes are improved by incorporating lessons learned into future activities."}
+      ]
+    }
+  ]
+}
