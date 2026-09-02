@@ -7,8 +7,7 @@
 > and were generated for demonstration purposes. No real organization's confidential
 > or proprietary information is represented here.
 
-**Live dashboard:** _add your Streamlit Community Cloud URL here after deploying (see
-[Deployment](#deployment) below)_
+**Live dashboard:** [grc-risk-register-tracker-n8evb3x9hoyuttcgxrs2du.streamlit.app](https://grc-risk-register-tracker-n8evb3x9hoyuttcgxrs2du.streamlit.app/)
 
 **Companion project:** [OpenAI Abuse Investigation Portfolio](https://github.com/jvandenhouten/openai-abuse-investigator-portfolio) — a synthetic investigative-analytics case study using the same "observed facts vs. analytical judgment" discipline described below.
 
