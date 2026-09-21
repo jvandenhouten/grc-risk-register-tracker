@@ -9,45 +9,128 @@
 
 **Live dashboard:** [grc-risk-register-tracker-n8evb3x9hoyuttcgxrs2du.streamlit.app](https://grc-risk-register-tracker-n8evb3x9hoyuttcgxrs2du.streamlit.app/)
 
-**Companion project:** [Abuse Investigation & Detection Portfolio](https://github.com/jvandenhouten/openai-abuse-investigator-portfolio)
+**Companion project:** [OpenAI Abuse Investigation Portfolio](https://github.com/jvandenhouten/openai-abuse-investigator-portfolio) — a synthetic investigative-analytics case study using the same "observed facts vs. analytical judgment" discipline described below.
 
-**AI governance note:** [docs/AI_GOVERNANCE_RELEVANCE.md](docs/AI_GOVERNANCE_RELEVANCE.md) · **Worked AI-risk example:** [docs/AI_RISK_EXAMPLE.md](docs/AI_RISK_EXAMPLE.md)
+## Why this matters for AI governance
+
+AI governance depends on more than policy statements. Organizations need a
+repeatable way to connect risks, controls, evidence, remediation, accountable
+owners, and executive decisions. This project demonstrates that operating
+discipline in a conventional enterprise-risk setting and provides a foundation
+that can be extended to AI systems using frameworks such as the NIST AI RMF.
+
+The transferable governance capabilities demonstrated here include:
+
+- traceable risk and control relationships;
+- explicit separation of recorded evidence from analytical judgment;
+- documented rationale for residual-risk decisions;
+- visible control gaps and remediation ownership; and
+- executive reporting that preserves the reasoning behind a risk score.
 
 ---
 
 ## What this is
 
-A working GRC tool: a risk register for a synthetic mid-size organization, with every control mapped to the **NIST Cybersecurity Framework (CSF) 2.0** (all 6 Functions, all 23 Categories), an interactive Streamlit dashboard, and a SQL/Jupyter analysis notebook.
+A working GRC (Governance, Risk, and Compliance) tool: a risk register for a
+synthetic mid-size organization, with every control mapped to the **NIST
+Cybersecurity Framework (CSF) 2.0** (all 6 Functions, all 23 Categories), an
+interactive Streamlit dashboard, and a SQL/Jupyter analysis notebook.
 
-It demonstrates the same skill set a Chief Risk Officer, Director of GRC, or AI-governance lead applies in practice: structuring a register that survives scrutiny, mapping controls to a recognized framework, scoring residual risk so it is *traceable to evidence*, and presenting the result in a form an executive can use.
+It's built to demonstrate the same skill set a Chief Risk Officer, Director of
+GRC, or enterprise risk analyst applies in practice: structuring a risk
+register that survives scrutiny, mapping controls to a recognized framework
+rather than an ad-hoc list, scoring residual risk in a way that's
+*traceable back to the evidence it's based on*, and presenting all of it in a
+form an executive can actually use.
 
 ### Core questions this tool is built to answer
 
-- Where does the organization carry the most residual risk once existing controls are accounted for?
-- Which NIST CSF 2.0 functions and categories have the weakest control maturity relative to the risk that depends on them?
-- Which risks have no mapped controls?
-- Is the remediation backlog shrinking, and is it prioritized correctly?
-- For any given risk score, what is the actual reasoning — not just the number?
-- How would a generative-AI / third-party-model risk be owned, controlled, exception-handled, and closed? See the worked example.
+- Where does the organization carry the most residual risk, right now, once
+  existing controls are accounted for?
+- Which NIST CSF 2.0 functions and categories have the weakest control
+  maturity, relative to how much risk depends on them?
+- Which risks have no mapped controls at all?
+- Is the remediation backlog shrinking, and is it prioritized correctly —
+  or is high-priority work sitting overdue while lower-priority work gets done?
+- For any given risk score, what's the actual reasoning behind it — not just
+  the number?
 
 ## Observed facts vs. analytical judgment
 
-- **Observed facts** — control implementation status, assessment findings and effectiveness ratings, remediation status.
-- **Analytical judgment** — every **residual risk score** is stored separately from those facts, with a mandatory human-readable **rationale**. A reader should never take a score on faith.
+This is the same analytical discipline used in the companion investigation
+project, applied to GRC:
 
-See the app **Methodology** tab and [docs/AI_GOVERNANCE_RELEVANCE.md](docs/AI_GOVERNANCE_RELEVANCE.md).
+- **Observed facts** — recorded directly: control *implementation status*,
+  assessment *findings and effectiveness ratings*, remediation *status*.
+  These are things that were actually checked and recorded, not opinions.
+- **Analytical judgment** — every **residual risk score** is stored
+  separately from the facts above, together with a mandatory, human-readable
+  **rationale** explaining how an analyst got from inherent risk and observed
+  control maturity to that score. A reader should never have to take a risk
+  score on faith — the reasoning and the evidence behind it are both right
+  there.
+
+See the app's **Methodology** tab (or [`app.py`](app.py)) for the full
+scoring methodology, its limitations, and how physical security / safety /
+compliance risks (which sit outside CSF's native cybersecurity scope) are
+cross-mapped to the framework.
 
 ## Project status
 
-**v1.1 hardening (2026-09-21)** — synthetic dataset, full NIST CSF 2.0 mapping, dashboard, analysis notebook, CI tests, security policy, and an AI-risk worked example.
+**Complete** — synthetic dataset, full NIST CSF 2.0 mapping, interactive
+dashboard, and SQL analysis notebook are all built and reproducible from
+scratch via the scripts in this repo.
 
-Automated checks in CI:
+## Repository structure
 
-- database file present and readable
-- six CSF functions and 23 categories
-- residual scores equal likelihood × impact
-- every residual assessment has a non-empty rationale
-- every CSF category has at least one mapped control
+```
+grc-risk-register-tracker/
+├── app.py                        # Streamlit dashboard (5 tabs, see below)
+├── requirements.txt
+├── data/
+│   ├── csf2_reference.json       # NIST CSF 2.0 functions & categories (reference data)
+│   └── grc_register.db           # Generated SQLite database (build with generate_data.py)
+├── scripts/
+│   ├── schema.sql                # Full database schema
+│   ├── generate_data.py          # Builds the synthetic dataset end-to-end
+│   └── build_notebook.py         # Generates notebooks/analysis.ipynb from code
+├── notebooks/
+│   └── analysis.ipynb            # SQL/pandas analysis, outputs pre-run and committed
+└── .streamlit/
+    └── config.toml
+```
+
+## Data model
+
+Eight tables: `business_units`, `assets`, `risks`, `controls`,
+`risk_control_map` (many-to-many), `assessments`, `residual_risk_assessments`,
+and `remediation_actions` — plus the NIST CSF 2.0 reference tables
+(`csf_functions`, `csf_categories`). Full schema in
+[`scripts/schema.sql`](scripts/schema.sql).
+
+The synthetic organization: a fictional mid-size logistics, industrial
+services, and international security-consulting company headquartered in
+Austin, TX, with field operations across Texas and a regional office in
+Riyadh, Saudi Arabia — 8 business units, 28 assets, 45 risks across six
+categories (Cybersecurity, Physical Security, Operational, Third-Party,
+Compliance/Regulatory, Safety/EHS), and 50 controls mapped across all 23 NIST
+CSF 2.0 categories.
+
+## Dashboard
+
+The Streamlit app has five tabs:
+
+1. **Executive Overview** — key metrics, a residual-risk heatmap, open risk
+   volume by category, control maturity by CSF function, and the top 10
+   residual risks.
+2. **Risk Register** — filterable risk register with a detail view per risk,
+   including its full residual-risk rationale and mapped controls.
+3. **NIST CSF 2.0 Controls** — filterable control inventory with a
+   function/category coverage chart.
+4. **Remediation Tracker** — remediation action status, filterable by status
+   and priority, with a stacked status-by-priority chart.
+5. **Methodology** — the full scoring methodology, data notes, and stated
+   limitations.
 
 ## Local setup
 
@@ -55,22 +138,45 @@ Automated checks in CI:
 git clone https://github.com/jvandenhouten/grc-risk-register-tracker.git
 cd grc-risk-register-tracker
 python -m venv venv
-source venv/bin/activate          # Windows: venv\Scripts\activate
+source venv/bin/activate          # macOS/Linux
+# Windows PowerShell: venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 
-python scripts/generate_data.py   # rebuilds data/grc_register.db if you change the generator
+python scripts/generate_data.py   # builds data/grc_register.db
 streamlit run app.py
-python -m pytest tests/ -q
 ```
 
-## What this is not
+To regenerate the analysis notebook's outputs after changing the dataset:
 
-This repository does not claim measured AI-accuracy improvement, ISO/IEC 42001 certification, or implementation of a production model-risk program. Those terms are used only as mapping language in the worked example.
+```bash
+python scripts/build_notebook.py
+jupyter nbconvert --to notebook --execute --inplace notebooks/analysis.ipynb
+```
+
+## Deployment
+
+The dashboard is built to deploy directly to
+[Streamlit Community Cloud](https://streamlit.io/cloud):
+
+1. Push this repository to GitHub.
+2. In Streamlit Community Cloud, create a new app pointing at this repo,
+   branch `main`, main file `app.py`.
+3. `data/grc_register.db` is committed to the repo, so no build step is
+   required — the app reads it directly. If you change the dataset, re-run
+   `python scripts/generate_data.py` and commit the updated `.db` file.
+
+Once deployed, add the live URL at the top of this README.
 
 ## Tech stack
 
-Python · SQLite · SQL · pandas · Streamlit · Plotly · pytest · GitHub Actions
+Python · SQLite · SQL · pandas · Streamlit · Plotly · Jupyter/nbconvert
 
 ## About
 
-Built by **Joel Vandenhouten** — retired U.S. Army Major; intelligence, investigations, enterprise security, and GRC executive; Texas A&M University School of Law, Master of Legal Studies in Cybersecurity Law & Policy (expected December 2026).
+Built by **Joel Vandenhouten** — retired U.S. Army Major and enterprise risk,
+physical security, and GRC executive, currently completing a Master of Legal
+Studies in Cybersecurity Law & Policy at Texas A&M University School of Law.
+Career background spans military intelligence and Red Team operations,
+corporate physical security and EHS leadership, and international (MENA)
+business operations — the domains this project's synthetic risk register is
+modeled on.
